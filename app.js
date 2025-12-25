@@ -9,8 +9,6 @@ const app = express();
 
 // --- CONFIGURATION ---
 const PORT = 5000;
-// Note: In production, always move this URI to a .env file for security
-// const MONGO_URI = 'mongodb+srv://kalebkandake_db_user:0C5Q7rnRLKjKaHTo@ouriseinit-contact.6e4kcjk.mongodb.net/?appName=ouriseinit-contact';
 
 // --- MIDDLEWARE ---
 app.use(cors());
@@ -38,7 +36,7 @@ const userSchema = new mongoose.Schema({
 const Message = mongoose.model('Message', messageSchema);
 const User = mongoose.model('User', userSchema)
 
-// --- API ROUTE ---
+// --- API ROUTES ---
 app.post('/api/submit', async (req, res) => {
     console.log(req.body)
 });
@@ -46,35 +44,39 @@ app.post('/api/submit', async (req, res) => {
 app.post('/api/send', async (req, res) => {
     console.log(req.body)
 
-    try {
-        const { name, email, phone, message } = req.body;
-
-        // Validation
-        console.log(name, email, phone, message)
-
-        // Save to Database
-        //await new Message({ name, message }).save();
-        await new User({ name, email, phone }).save()
-
-        res.status(201).json({ success: true, message: "Form submitted successfully!" });
-    } catch (error) {
-        console.error("Save Error:", error);
-        res.status(500).json({ success: false, error: "Internal Server Error" });
+    let newUser = User.findOne({ phone: req.body.phone });
+    if (!newUser && newUser !== User.findOne({ phone: req.body.phone })) {
+        newUser = new User(req.body);
+        await newUser.save();
     }
+    res.redirect('/api/users');
 })
 
+app.get('/api/users', async (req, res) => {
+    const result = await User.find({});
+    console.log(result)
+    res.json(result);
+});
+app.get('/api/db/load', async (req, res) => {
+    const users = require('./data/users.json');
+    users.map(async (user) => {
+        const newUser = new User(user);
+        await newUser.save();
+    })
+    res.redirect('/');
+})
+app.get('/api/db/clear', async (req, res) => {
+    await User.deleteMany({});
+    res.redirect('/');
+})
+
+// --- VIEW ROUTES ---
 app.get('/', (req, res) => {
     res.sendFile(path.resolve(__dirname, 'index.html'))
 })
-app.get('/api/users', async (req, res) => {
-    try {
-        const users = await User.find();
-        res.json(users);
-    } catch (error) {
-        console.error("Fetch Error:", error);
-        res.status(500).json({ success: false, error: "Internal Server Error" });
-    }
-});
+app.get('/users', ( req, res) => {
+    res.sendFile(path.resolve(__dirname, 'pages/users.html'))
+})
 
 // --- START SERVER ---
 app.listen(PORT, () => {
