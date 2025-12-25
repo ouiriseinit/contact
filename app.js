@@ -1,125 +1,82 @@
 const express = require('express');
-const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
+const cors = require('cors');
 const path = require('path')
+const bodyParser = require('body-parser')
 require('dotenv').config()
 
-// Databse Config
-const { Pool } = require('pg')
-const pool = new Pool({
-    connectionString: process.env.DATABASE_URL,
-    ssl: { rejectUnauthorized: false}
-});
-async function testConnection() {
-  console.log('--- Testing Supabase Connection ---');
-  console.log('Attempting to connect to pooler...');
-
-  try {
-    const client = await pool.connect();
-    console.log('✅ Successfully connected to the Pooler.');
-
-    const res = await client.query('SELECT NOW() as current_time, current_database() as db_name');
-    console.log('✅ Query successful!');
-    console.log('Database Time:', res.rows[0].current_time);
-    console.log('Database Name:', res.rows[0].db_name);
-
-    client.release(); // Return the client to the pool
-  } catch (err) {
-    console.error('❌ Connection failed!');
-    console.error('Error details:', err.message);
-    
-    if (err.message.includes('ENOTFOUND')) {
-      console.log('\nTip: Check if your DATABASE_URL is correct or if you have an internet connection.');
-    } else if (err.message.includes('password authentication failed')) {
-      console.log('\nTip: Double check your database password in Supabase.');
-    }
-  } finally {
-    await pool.end();
-    process.exit();
-  }
-}
-
-const messages = []
-const users = []
-
-// Create an instance of Express
 const app = express();
-const PORT = process.env.PORT || 3000;
 
-// Middleware to parse form data
+// --- CONFIGURATION ---
+const PORT = 5000;
+// Note: In production, always move this URI to a .env file for security
+// const MONGO_URI = 'mongodb+srv://kalebkandake_db_user:0C5Q7rnRLKjKaHTo@ouriseinit-contact.6e4kcjk.mongodb.net/?appName=ouriseinit-contact';
+
+// --- MIDDLEWARE ---
+app.use(cors());
+app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.static(path.join(__dirname, 'public')))
+
+// --- DATABASE CONNECTION ---
+mongoose.connect(process.env.MONGO_URI)
+    .then(() => console.log('✅ Connected to MongoDB Atlas'))
+    .catch(err => console.error('❌ MongoDB Connection Error:', err));
+
+// --- DATABASE SCHEMA & MODEL ---
+const messageSchema = new mongoose.Schema({
+    name: { type: String, required: true },
+    message: { type: String, required: true },
+    date: { type: Date, default: Date.now }
+});
+const userSchema = new mongoose.Schema({
+    name: { type: String, required: true },
+    phone: { type: String, required: false },
+    email: { type: String, required: false },
+    date: { type: Date, default: Date.now }
+})
+
+const Message = mongoose.model('Message', messageSchema);
+const User = mongoose.model('User', userSchema)
+
+// --- API ROUTE ---
+app.post('/api/submit', async (req, res) => {
+    console.log(req.body)
+});
+
+app.post('/api/send', async (req, res) => {
+    console.log(req.body)
+
+    try {
+        const { name, email, phone, message } = req.body;
+
+        // Validation
+        console.log(name, email, phone, message)
+
+        // Save to Database
+        //await new Message({ name, message }).save();
+        await new User({ name, email, phone }).save()
+
+        res.status(201).json({ success: true, message: "Form submitted successfully!" });
+    } catch (error) {
+        console.error("Save Error:", error);
+        res.status(500).json({ success: false, error: "Internal Server Error" });
+    }
+})
 
 app.get('/', (req, res) => {
-    res.sendFile(__dirname + '/index.html')
+    res.sendFile(`C:\\Users\\muham\\OneDrive\\Documents\\GitHub\\contact\\index.html`)
 })
-app.get('/api', (req, res) => {
-    console.log('/api')
-    res.redirect('/')
-})
-// Endpoint to handle the submission of the contact form
-app.post('/api/submit', (req, res) => {
-    const { username, email, phone, message } = req.body;
-    
-    // Here you can log or process the received data
-    // {
-    //     username,
-    //     email,
-    //     phone,
-    //     message
-    // }
-
-    if (username && (email || phone || message)) {
-        // send to db
-        const user_id = users.length
-        const message_id = messages.length
-        users.push({ user_id, username, email, phone })
-        messages.push({ user_id, username, message })
-        
-        // output success
-        console.log(`Received a message`)
-        console.log(req.body)
-        return res.redirect('/api')
-        
-    } else {
-        console.log('incomplete data (no db): ' + { username, email, phone, message})
-        return res.redirect('/api')
+app.get('/api/users', async (req, res) => {
+    try {
+        const users = await User.find();
+        res.json(users);
+    } catch (error) {
+        console.error("Fetch Error:", error);
+        res.status(500).json({ success: false, error: "Internal Server Error" });
     }
 });
 
-app.get('/api/messages', (req, res) => {
-    console.log(messages)
-    return res.json(messages)
-})
-app.get('/api/messages/:id', (req, res) => {
-    if (req.params.id < messages.length) {
-        console.log(messages[req.params.id])
-        return res.json(messages[req.params.id])
-    }
-    return res.send('Error. invalid id. must be between (0, ' + messages.length - 1 + ')')
-})
-app.get('/api/messages/latest', (req, res) => {
-    if (0 < messages.length) {
-        console.log(messages[messages.length - 1])
-        return res.json(messages[messages.length - 1])
-    }
-    return res.send('No recent messages')
-})
-app.get('/api/users', (req, res) => {
-    if (0 < users.length) {
-        console.log(users)
-        return res.json(users)
-    }
-    return res.send('empty users')
-})
-app.get('/api/users/latest', (req, res) => {
-    if (0 < users.length) {
-        console.log(users[users.length - 1])
-        return res.json(users[users.length - 1])
-    }
-    return res.send('empty users')
-})
-// Start the server
+// --- START SERVER ---
 app.listen(PORT, () => {
-    // testConnection()
-    console.log(`Server is running on port ${PORT}`);
+    console.log(`🚀 Server running at http://localhost:${PORT}`);
 });
