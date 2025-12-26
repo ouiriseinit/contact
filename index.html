@@ -213,8 +213,8 @@ nav {
     form { padding: 1.5rem; }
 }
     </style>
-    <link rel="stylesheet" href="https://contact-eight-black.vercel.app/css/global.css">
-    <script src="https://contact-eight-black.vercel.app/js/contact.js" defer></script>
+    <link rel="stylesheet" href="css/global.css">
+    <script src="js/contact.js" defer></script>
 </head>
 <body>
 <header>
@@ -240,7 +240,7 @@ nav {
         <li>content writing</li>
     </ul>
   </section>
-  <form class="contact column hidden" id="form" action="/api/send" method="POST">
+  <form class="contact column hidden" id="form" action="https://contact-eight-black.vercel.app/api/send" method="POST">
       <h2>Contact</h2>
       <label>
           name
@@ -256,7 +256,7 @@ nav {
       </label>
       <label>
           leave a message
-          <textarea name="message"></textarea>
+          <textarea name="content"></textarea>
       </label>
       <input type="submit" value="send message" />
   </form>

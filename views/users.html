@@ -1,4 +1,11 @@
-:root {
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact</title>
+    <style>
+      :root {
 --bg: #050505;
 --bg-panel: #111111;
 --color: rgba(255, 255, 255, 0.8);
@@ -216,3 +223,89 @@ header, main, footer { padding: 1.5rem; }
 h2 { font-size: 1.5rem; }
 form { padding: 1.5rem; }
 }
+    </style>
+    <link rel="stylesheet" href="../css/global.css">
+    <script src="../js/contact.js" defer></script>
+</head>
+<body>
+<header>
+  <!-- site icon -->
+  <a href='/'><h1 class="header-title">OUIRISE INTIATIVE</h1></a>
+  <nav class="socials">
+    <button class="" id="contact-button">contact</button>
+  </nav>
+</header>
+
+<!-- Main Content -->
+<main>
+  <section class="grid" id="users">
+    <h2>Users</h2>
+    
+  </section>
+  <form class="contact column hidden" id="form" action="/api/send" method="POST">
+      <h2>Contact</h2>
+      <label>
+          name
+          <input type="text" name="name" />
+      </label>
+      <label>
+          email
+          <input type="text" name="email" />
+      </label>
+      <label>
+          phone number
+          <input type="text" name="phone" />
+      </label>
+      <label>
+          leave a message
+          <textarea name="content"></textarea>
+      </label>
+      <input type="submit" value="send message" />
+</form>
+</main>
+
+
+
+<!-- Footer -->
+<footer>
+  <p class="copyright">EULA <span>This source code can be republished, reutilized, revoked or otherwise modified by the creator of OuiRise Initiative.</span></p>
+</footer>
+</body>
+<script>
+  window.addEventListener('load', function() {
+    fetch('/api/users')
+      .then(response => response.json())
+      .then(result => {
+        const usersSection = document.getElementById('users');
+        usersSection.innerHTML = '<h2>Users</h2>'; // Clear existing content and add header
+        result.forEach(user => {
+          const userCard = document.createElement('div');
+          userCard.classList.add('user-card');
+          if (user.phone.length === 10) {
+              user.phone = user.phone.replace(/(\d{3})(\d{3})(\d{4})/, '($1) $2-$3');
+          }
+          userCard.innerHTML = `
+            <h3>${user.name}</h3>
+            <a href="mailto:${user.email}">${user.email}</a>
+            <a href="tel:${user.phone}">${user.phone}</a>
+            <a className="right" href="/api/user/${user._id}/messages">View Messages</a>
+            <a className="hidden" href="/api/user/${user._id}/delete">Remove</a>
+          `;
+          usersSection.appendChild(userCard);
+        });
+      })
+      const contactButton = document.getElementById('contact-button');
+      const form = document.getElementById('form');
+      
+      contactButton.onclick = () => {
+          // This toggles just the 'hidden' class without wiping out other classes
+          form.classList.toggle('hidden');
+          
+          // Smooth scroll to form if it's being shown
+          if (!form.classList.contains('hidden')) {
+              form.scrollIntoView({ behavior: 'smooth' });
+          }
+      }
+  });
+</script>
+</html>

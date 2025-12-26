@@ -274,7 +274,7 @@ footer {
       </label>
       <label>
           leave a message
-          <textarea name="message"></textarea>
+          <textarea name="content"></textarea>
       </label>
       <input type="submit" value="send message" />
   </form>
@@ -301,6 +301,7 @@ footer {
                 messageCard.innerHTML = `
                     <h3>${message.name}</h3>
                     <p>${message.message}</p>
+                    <a href="/api/message/${message._id}/delete">Remove</a>
                     
                 `;
                 //<a href="/api/message/${message._id}/delete">Delete Message</a>

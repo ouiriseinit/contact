@@ -23,7 +23,8 @@ mongoose.connect(process.env.MONGO_URI)
 // --- DATABASE SCHEMA & MODEL ---
 const messageSchema = new mongoose.Schema({
     name: { type: String, required: true },
-    message: { type: String, required: true },
+    user_id: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+    content: { type: String, required: true },
     date: { type: Date, default: Date.now }
 });
 const userSchema = new mongoose.Schema({
@@ -40,30 +41,32 @@ const User = mongoose.model('User', userSchema)
 
 app.post('/api/send', async (req, res) => {
     try {
-    const { name, email, phone, message } = req.body;
+    const { name, email, phone, content } = req.body;
+    let user_id = null;
     // Extract the user data from req.body and create a new User instance
     const newUser = new User({ name, email, phone });
 
-    let found = await User.findOne({ name});
-    if (!found) found = await User.findOne({ email });
+    let found = await User.findOne({ email });
     if (!found) found = await User.findOne({ phone });
-    // Save the new user to the database only if not found
-    if (!found) await newUser.save();
 
-    found = await User.findOne(newUser);
-    console.log(found)
-    if (found) {
-        const newMessage = new Message({ name, user_id: found._id, message });
-        await newMessage.save();
-        res.redirect('/')
-        //res.status(201).json({ message: 'User created successfully', userId: newUser.id });
+    // Save the new user to the database only if doesn't exist
+    if (found) user_id = found._id;
+    else {
+        const created = await newUser.save();
+        user_id = created._id;
     }
-    // Send success response
-    
+
+    if (user_id) {
+        console.log('User ID:', user_id);
+        const newMessage = new Message({ name, user_id, content });
+        await newMessage.save();
+        res.redirect('/users')
+    }
+    else res.send('user not created')
   } catch (error) {
     console.error('Error creating user:', error);
     // Send error response
-    res.status(500).json({ error: 'Failed to create user' });
+    res.status(500).json({ error: 'Failed to ping database' });
   }
 })
 
@@ -134,6 +137,9 @@ app.get('/messages', ( req, res) => {
 app.get('/user/:id', (req, res) => {
     res.sendFile(path.resolve(__dirname, 'pages/user.html'))
 });
+app.get('/user/:id/messages', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'pages/messages.html'))
+})
 
 // --- START SERVER ---
 app.listen(PORT, () => {
