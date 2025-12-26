@@ -44,11 +44,14 @@ app.post('/api/send', async (req, res) => {
     // Extract the user data from req.body and create a new User instance
     const newUser = new User({ name, email, phone });
 
-    let found = await User.findOne(newUser);
-     // Save the new user to the database only if not found
+    let found = await User.findOne({ name});
+    if (!found) found = await User.findOne({ email });
+    if (!found) found = await User.findOne({ phone });
+    // Save the new user to the database only if not found
     if (!found) await newUser.save();
 
     found = await User.findOne(newUser);
+    console.log(found)
     if (found) {
         const newMessage = new Message({ name, user_id: found._id, message });
         await newMessage.save();

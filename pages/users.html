@@ -196,6 +196,17 @@ footer {
     opacity: 0.6;
 }
 
+.user-card {
+    background: var(--bg-panel);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    width: 250px;
+}
+
 /* Animations */
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(10px); }
@@ -245,7 +256,7 @@ footer {
           <textarea name="message"></textarea>
       </label>
       <input type="submit" value="send message" />
-  </form>
+</form>
 </main>
 
 
@@ -268,9 +279,10 @@ footer {
           userCard.classList.add('user-card');
           userCard.innerHTML = `
             <h3>${user.name}</h3>
-            <p>Email: ${user.email}</p>
-            <p>Phone: ${user.phone}</p>
-            <a href="/api/user/${user._id}/delete">Delete User</a>
+            <a href="mailto:${user.email}">${user.email}</a>
+            <a href="tel:${user.phone}">${user.phone}</a>
+            <a href="/api/user/${user._id}/messages">View Messages</a>
+            <a href="/api/user/${user._id}/delete">Remove</a>
           `;
           usersSection.appendChild(userCard);
         });
