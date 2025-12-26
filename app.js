@@ -72,6 +72,8 @@ app.get('/api/users', async (req, res) => {
 app.get('/api/user/:id', async (req, res) => {
     const userId = req.params.id;
     const user = await User.findById(userId);
+
+    if (!user) return res.status(404).json({ error: 'User not found' });
     res.json(user);
 })
 app.get('/api/user/:id/delete', async (req, res) => {
@@ -95,6 +97,11 @@ app.get('/api/message/:id/delete', async (req, res) => {
     await Message.findByIdAndDelete(messageId);
     res.redirect('/');
 })
+app.get('/api/user/:id/messages', async (req, res) => {
+    const userId = req.params.id;
+    const messages = await Message.find({ user_id: userId });
+    res.json(messages);
+});
 
 // DB ADMIN ROUTES
 app.get('/api/db/load', async (req, res) => {
@@ -121,7 +128,9 @@ app.get('/users', ( req, res) => {
 app.get('/messages', ( req, res) => {
     res.sendFile(path.resolve(__dirname, 'pages/messages.html'))
 });
-
+app.get('/user/:id', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'pages/user.html'))
+});
 
 // --- START SERVER ---
 app.listen(PORT, () => {
