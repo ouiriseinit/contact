@@ -201,6 +201,42 @@
             gap: 1.5rem;
             align-items: center;}
 
+        main section {
+            margin: 1rem 0;
+        }
+
+        .projects {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .project-item {
+            background: var(--bg-panel);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            transition: var(--transition);
+            text-align: center;
+            width: 300px;
+        }
+        .project-item:hover {
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            transform: translateY(-5px);
+        }
+        .project-item img {
+            margin: 1rem 0;
+        }
+
+        img {
+            max-width: 100%;
+        }
+
+        section .portfolio > h2 {
+            margin-left: 3rem;
+        }
+
         /* Animations */
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(10px); }
@@ -208,9 +244,13 @@
         }
 
         @media (max-width: 768px) {
-            header, main, footer { padding: 1.5rem; }
             h2 { font-size: 1.5rem; }
             form { padding: 1.5rem; }
+            main {
+                width: 90vw;
+                margin: auto;
+            }
+
         }
     </style>
 </head>
@@ -226,37 +266,33 @@
 <!-- Main Content -->
 <main>
   <section class="bio">
-    <h2>built for creatives who move different.</h2>
-    <!-- <a class="action">Schedule Appointment</a> -->
-    <!-- Add more content here as needed -->
-     <ul class="services">
-        <li>Website Design and Development</li>
-        <li>SEO Optimization</li>
-        <li>Content Writing</li>
-        <li>Ecommerce</li>
-        <li>Software Engineering</li>
-        <li>Cloud Security</li>
+    <h2>Launch your vision 🚀</h2>
+    <ul class="links">
+    <li><a href="">(980) 486 - 7595</a></li>
+    <li><a href="mailto:ouiriseinitiative@yahoo.com">ouiriseinitiative@yahoo.com</a></li>
+    <li>contact us to schedule a project design meeting</li>
     </ul>
-  </section>
-
-  <section class="portfolio">
-    <h2>Portfolio</h2>
-    <div class="projects">
+    <h2>Bring a design ✨🎨</h2>   
+    <section class="portfolio">
+        <h2>🎨✨or use a template</h2>
+        <div class="projects">
         <div class="project-item">
-        <h3>Cultural Gold</h3>
-        <p>Home page preview</p>
-        <a href="https://ouiriseinit.github.io/culturalgold">View Project</a>
+        <a href="https://ouiriseinit.github.io/culturalgold">
+            <h3>Cultural Gold</h3>
+            <figure><img src="https://ouiriseinit.github.io/culturalgold/images/logo-alt-removebg-preview.png"/><figcaption>View Project</figcaption></figure>
+        </a>
       </div>
         <!-- Example project item -->
-      <div class="project-item">
-        <h3>The Jugo Bar</h3>
-        <p>3 page ecommerce preview</p>
-        <a href="https://ouiriseinit.github.io/thejugobar">View Project</a>
-      </div>
+        <div class="project-item">
+            <a href="https://ouiriseinit.github.io/thejugobar"></a>
+            <h3>The Jugo Bar</h3>
+            <figure><img src="https://images.squarespace-cdn.com/content/v1/67cf71a48a9c4f3de71c1341/2c837587-2069-4276-8f98-348194451dcb/D7B8A19A-6683-498A-8F28-C5447229EDBE.png?format=1500w" alt="The Jugo Bar" /><figcaption>View Project</figcaption></figure>
+        </a>
+        </div>
       
       <!-- Add more project items as needed -->
     </div>
-  <form class="contact column hidden" id="form" action="https://contact-eight-black.vercel.app/api/send" method="POST">
+    <form class="contact column hidden" id="form" action="https://contact-eight-black.vercel.app/api/send" method="POST">
       <h2>Contact</h2>
       <label>
           name
@@ -275,20 +311,22 @@
           <textarea name="content"></textarea>
       </label>
       <input type="submit" value="send message" />
-  </form>
-  <ul class="links">
-    <li><a href="">(980) 486 - 7595</a></li>
-    <li><a href="mailto:ouiriseinitiative@yahoo.com">ouiriseinitiative@yahoo.com</a></li>
-    <!-- <li><a href="">543 United Way, City, State, 35534</a></li> -->
-    <!-- <li><a href="">@spotify</a></li> -->
-     <!-- create new lead -->
-  
-    
-    <!-- <li><a href="" id="instagram">@instagram</a></li>
-    <li><a href="" id="tiktok">@tiktok</a></li>
-    <li><a href="">@facebook</a></li>
-    <li><a href="">@x</a></li> -->
+    </form>
+    <!-- <a class="action">Schedule Appointment</a> -->
+    <!-- Add more content here as needed -->
+    <ul class="services">
+        <li>Website Design and Development</li>
+        <li>SEO Optimization</li>
+        <li>Content Writing</li>
+        <li>Ecommerce</li>
+        <li>Cloud Database Management</li>
+        <li>Full-Stack Deployment</li>
     </ul>
+  </section>
+
+  
+  
+  
 </main>
 
 
