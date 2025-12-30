@@ -64,8 +64,10 @@ app.post('/api/send', async (req, res) => {
   }
 })
 app.get('/api/send', async (req, res) => {
-    try {
+    console.log(req.body)
     const { name, email, phone, message } = req.body;
+    try {
+    
     // Extract the user data from req.body and create a new User instance
     const newUser = new User({ name, email, phone, business });
 
