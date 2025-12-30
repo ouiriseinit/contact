@@ -1,5 +1,7 @@
 module.exports = app = require('express').Router();
 const { Message, User } = require('../db/models')
+const cloud = 'https://ouiriseinit.github.io/'
+
 
 app.post('/send', async (req, res) => {
     try {
@@ -22,14 +24,14 @@ app.post('/send', async (req, res) => {
         console.log('User ID:', user_id);
         const newMessage = new Message({ name, user_id, content, business });
         await newMessage.save();
-        res.redirect('https://ouiriseinit.github.io/')
+        res.redirect(cloud)
     }
     else res.send('user not created')
   } catch (error) {
     console.error('Error creating user:', error);
     // Send error response
     // res.status(500).json({ error: 'Failed to ping database' });
-    res.redirect('https://ouiriseinit.github.io/')
+    res.redirect(cloud)
   }
 })
 
@@ -48,5 +50,5 @@ app.get('/:id', async (req, res) => {
 app.get('/:id/delete', async (req, res) => {
     const messageId = req.params.id;
     await Message.findByIdAndDelete(messageId);
-    res.redirect('https://ouiriseinit.github.io/');
+    res.redirect(cloud);
 })
