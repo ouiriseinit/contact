@@ -67,6 +67,7 @@ app.get('/api/send', async (req, res) => {
     try {
     //const { name, email, phone, message, business } = req.body;
     console.log(req.body)
+    res.redirect('/')
     // Extract the user data from req.body and create a new User instance
 //     let found = User.findOne({ name, email, phone, business })
 //     if (!found) {
