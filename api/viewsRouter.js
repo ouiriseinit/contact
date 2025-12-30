@@ -2,11 +2,11 @@ module.exports = app = require('express').Router();
 const path = require('path');
 require('dotenv').config
 const local = process.env.LOCAL || false
-const cloud = "https://ouiriseinit.github.io/"
+const cloud = "https://ouiriseinit.github.io/views"
 
 app.get('/', (req, res) => {
     if (local) res.sendFile(path.resolve(process.env.HOME_PATH, 'index.html'))
-    res.redirect(cloud)
+    res.redirect('https://ouiriseinit.')
 })
 app.get('/users', ( req, res) => {
     const file_route = 'views/users.html'
@@ -15,7 +15,7 @@ app.get('/users', ( req, res) => {
 })
 app.get('/messages', ( req, res) => {
     const file_route = 'views/messages.html'
-    if (local) res.sendFile(path.resolve(__dirname, file_route))
+    if (local) res.sendFile(path.resolve(__dirname, 'api/' +file_route))
     res.redirect(cloud + file_route)
 });
 app.get('/user/:id', (req, res) => {

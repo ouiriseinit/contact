@@ -4,6 +4,7 @@ const cors = require('cors');
 const path = require('path')
 const bodyParser = require('body-parser')
 require('dotenv').config()
+const { User, Message } = require('./api/db/modles') 
 
 const app = express();
 
@@ -24,9 +25,9 @@ mongoose.connect(process.env.MONGO_URI)
 app.use('/', require('./api/viewsRouter'))
 // app.use('/api', require('./api/routes'));
 
-app.get('/api', (req, res) => {
-    res.redirect(cloud)
-})
+app.use('/contacts', require('./routes/user'));
+app.use('/messages', require('./routes/message'));
+app.use('/admin', require('./routes/admin'))
 
 app.post('/api/send', async (req, res) => {
     try {
