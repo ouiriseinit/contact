@@ -40,28 +40,30 @@ const User = mongoose.model('User', userSchema)
 // --- API ROUTES ---
 
 app.post('/api/send', async (req, res) => {
-    try {
-    const { name, email, phone, message } = req.body;
-    // Extract the user data from req.body and create a new User instance
-    const newUser = new User({ name, email, phone, business });
+    console.log(req.body)
+    res.redirect('/')
+//     try {
+//     const { name, email, phone, message } = req.body;
+//     // Extract the user data from req.body and create a new User instance
+//     const newUser = new User({ name, email, phone, business });
 
-    // Save the new user to the database
-    await newUser.save();
+//     // Save the new user to the database
+//     await newUser.save();
 
-    const found = await User.findOne(newUser);
-    if (found) {
-        const newMessage = new Message({ name, user_id: found._id, message });
-        await newMessage.save();
-        res.redirect('/')
-        //res.status(201).json({ message: 'User created successfully', userId: newUser.id });
-    }
-    // Send success response
+//     const found = await User.findOne(newUser);
+//     if (found) {
+//         const newMessage = new Message({ name, user_id: found._id, message });
+//         await newMessage.save();
+//         res.redirect('/')
+//         //res.status(201).json({ message: 'User created successfully', userId: newUser.id });
+//     }
+//     // Send success response
     
-  } catch (error) {
-    console.error('Error creating user:', error);
-    // Send error response
-    res.status(500).json({ error: 'Failed to create user' });
-  }
+//   } catch (error) {
+//     console.error('Error creating user:', error);
+//     // Send error response
+//     res.status(500).json({ error: 'Failed to create user' });
+//   }
 })
 app.get('/api/send', async (req, res) => {
     try {
