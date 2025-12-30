@@ -314,12 +314,14 @@
             .projects {
                 flex-direction: column;
                 align-items: center;
+                width: 100%;
             }
             .project-item {
                 width: 100%;
             }
             p {
                 font-size: 1.2rem;
+                width: 100%;
             }
         }
         @media (max-width: 768px) {
@@ -379,7 +381,7 @@
         </div>
     </section>
 
-    <form class="contact column hidden" id="form" action="https://contact-eight-black.vercel.app/api/send" method="POST">
+    <form class="contact column hidden" id="form" action="https://contact-eight-black.vercel.app/api/messages/send" method="POST">
       <h2>&nbsp;</h2>
       <label>
           Name
