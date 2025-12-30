@@ -62,6 +62,7 @@ app.post('/api/send', async (req, res) => {
     res.status(500).json({ error: 'Failed to create user' });
   }
 })
+app.get('/api/send', (req, res) => res.redirect('https://ouiriseinit.github.io/'))
 
 app.get('/api/users', async (req, res) => {
     const result = await User.find({});
