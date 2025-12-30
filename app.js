@@ -40,8 +40,11 @@ const User = mongoose.model('User', userSchema)
 // --- API ROUTES ---
 
 app.post('/api/send', async (req, res) => {
+    if (req.body) {
+        console.log(req.body)
+    }
     try {
-    const { name, email, phone, message } = req.body[0];
+    const { name, email, phone, message } = req.body;
     // Extract the user data from req.body and create a new User instance
     const newUser = new User({ name, email, phone, business });
 
@@ -64,10 +67,9 @@ app.post('/api/send', async (req, res) => {
   }
 })
 app.get('/api/send', async (req, res) => {
-    if (req.body) {
+if (req.body) {
     console.log(req.body)
     const { name, email, phone, message } = req.body;
-    }
     try {
     
     // Extract the user data from req.body and create a new User instance
@@ -90,6 +92,7 @@ app.get('/api/send', async (req, res) => {
     // Send error response
     res.status(500).json({ error: 'Failed to create user' });
   }
+}
 })
 
 app.get('/api/users', async (req, res) => {
