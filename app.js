@@ -30,6 +30,7 @@ const userSchema = new mongoose.Schema({
     name: { type: String, required: true },
     phone: { type: String, required: false },
     email: { type: String, required: false },
+    business: { type: String, required: false },
     date: { type: Date, default: Date.now }
 })
 
@@ -42,7 +43,7 @@ app.post('/api/send', async (req, res) => {
     try {
     const { name, email, phone, message } = req.body;
     // Extract the user data from req.body and create a new User instance
-    const newUser = new User({ name, email, phone });
+    const newUser = new User({ name, email, phone, business });
 
     // Save the new user to the database
     await newUser.save();
