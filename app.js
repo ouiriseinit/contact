@@ -68,8 +68,9 @@ app.post('/api/send', async (req, res) => {
 //   }
 })
 app.get('/api/send', async (req, res) => {
-
+    if (req) {
     console.log(req)
+    }
     res.redirect('/')
     //?name=kanna &email=test&phone=test&business=ouirise&message=test
     
