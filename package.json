@@ -1,15 +1,17 @@
 {
-  "dependencies": {
-    "body-parser": "^2.2.1",
-    "cors": "^2.8.5",
-    "dotenv": "^17.2.3",
-    "express": "^5.2.1",
-    "mongodb": "^7.0.0",
-    "mongoose": "^9.0.2",
-    "path": "^0.12.7",
-    "pg": "^8.16.3"
-  },
+  "private": true,
   "scripts": {
-    "start": "node app.js"
+    "build": "next build",
+    "dev": "next dev",
+    "start": "next start"
+  },
+  "dependencies": {
+    "next": "latest",
+    "nodemon": "^3.1.11",
+    "react": "latest",
+    "react-dom": "latest"
+  },
+  "engines": {
+    "node": ">=18"
   }
 }
