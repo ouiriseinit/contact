@@ -117,7 +117,7 @@ button, input[type="submit"] {
     background: transparent;
     background: var(--bg-panel);
     color: var(--bg);
-    padding: 1rem 3rem;
+    padding: 1rem;
     border-radius: 4px;
     transition: var(--transition);
     font-size: 0.9rem;
@@ -186,7 +186,10 @@ input[type="submit"] {
     cursor: pointer;
     transition: var(--transition);
 }
-
+#contact-button {
+    width: fit-content;
+    padding: 1rem;
+}
 
 /* Footer */
 footer {
@@ -223,19 +226,32 @@ footer {
 <!-- Main Content -->
 <main>
   <section class="bio">
-    <h2>OK@OUIRISEINTIATIVE</h2>
   
     <p>Creative intelligent code.</p>
     <!-- <a class="action">Schedule Appointment</a> -->
     <!-- Add more content here as needed -->
      <ul class="services">
-        <li>custom small business web expansion</li>
-        <li>enterprise software solutions</li>
-        <li>service based maintenance pricing</li>
-        <li>cloud-based security</li>
-        <li>content writing</li>
+        <li>software engineering custom solutions</li>
+        <li>e-commerce</li>
+        <li>cloud deployment</li>
+        <li>content generation</li>
     </ul>
   </section>
+
+  <ul class="links">
+    <li><a href="">(980) 486 - 7595</a></li>
+    <li><a href="mailto:ouiriseinitiative@yahoo.com">ouiriseinitiative@yahoo.com</a></li>
+    <!-- <li><a href="">543 United Way, City, State, 35534</a></li> -->
+    <!-- <li><a href="">@spotify</a></li> -->
+     <!-- create new lead -->
+  
+    
+    <!-- <li><a href="" id="instagram">@instagram</a></li>
+    <li><a href="" id="tiktok">@tiktok</a></li>
+    <li><a href="">@facebook</a></li>
+    <li><a href="">@x</a></li> -->
+    </ul>
+
   <form class="contact column hidden" id="form" action="/api/send" method="POST">
       <h2>Contact</h2>
       <label>
@@ -256,20 +272,7 @@ footer {
       </label>
       <input type="submit" value="send message" />
   </form>
-  <ul class="links">
-    <h2>Links</h2>
-    <li><a href="">(980) 486 - 7595</a></li>
-    <li><a href="mailto:ouiriseinitiative@yahoo.com">ouiriseinitiative@yahoo.com</a></li>
-    <!-- <li><a href="">543 United Way, City, State, 35534</a></li> -->
-    <!-- <li><a href="">@spotify</a></li> -->
-     <!-- create new lead -->
   
-    
-    <!-- <li><a href="" id="instagram">@instagram</a></li>
-    <li><a href="" id="tiktok">@tiktok</a></li>
-    <li><a href="">@facebook</a></li>
-    <li><a href="">@x</a></li> -->
-    </ul>
 </main>
 
 
