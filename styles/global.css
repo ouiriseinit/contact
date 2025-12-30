@@ -121,4 +121,6 @@ img {
             Courier New,
             monospace;
         }
-
+        code > * {
+          color: rgb(237, 185, 80);
+        }

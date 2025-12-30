@@ -9,36 +9,46 @@ export default function Home() {
   const business = 'ouirise'
   const [message, setMessage] = useState('')
 
+  const [showForm, setShowForm] = useState(false)
+
   const handleSubmit = (e) => {
     e.preventDefault()
-    console.log(json.stringify({name, phone, email, business, message}))
+    console.log({name, phone, email, business, message})
     alert("ping from " + name)
   }
   return (
     <div className={styles.container}>
-      <Head>
+      <Head className={styles.header}>
         <title>Create Next App</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <main>
-        <h1 className={styles.title}>
-          Ouirise Initiative
-        </h1>
 
         <p className={styles.description}>
-          We Launch Businesses 🚀
+          Launch Your Business with Ouirise
         </p>
 
-        <form className="form"> 
-            <h2>Contact Us</h2>
-            <input type="text" placeholder="name" onChange={(e => setName(e.target.value))} />
-            <input type="phone" placeholder="phone" onChange={(e => setPhone(e.target.value))} />
-            <input type="email" placeholder="email (optional)"onChange={(e => setEmail(e.target.value))}  />
-            <input type="message" placeholder="send a message (optional)" onChange={(e => setMessage(e.target.value))} />
-            <input type="submit"  value="enter" onSubmit={(e) => handleSubmit(e)} />
-        </form>
+        <h2 className={styles.centerText}>✨🌟🚀</h2>
 
+        <button className={styles.button} onClick={() => setShowForm(!showForm)}>Contact</button>
+
+        <ul className={styles.services}>
+          <li>Software engineering custom solutions</li>
+          <li>SEO web application development</li>
+          <li>Cloud infrastructure deployment</li>
+          <li>Database creation and analyitics</li>
+        </ul>
+        { showForm && 
+          <form className='form'> 
+              <h2>Contact Us</h2>
+              <input type="text" placeholder="name" onChange={(e => setName(e.target.value))} />
+              <input type="phone" placeholder="phone" onChange={(e => setPhone(e.target.value))} />
+              <input type="email" placeholder="email (optional)"onChange={(e => setEmail(e.target.value))}  />
+              <input type="message" placeholder="send a message (optional)" onChange={(e => setMessage(e.target.value))} />
+              <input type="submit"  value="enter" onSubmit={(e) => handleSubmit(e)} />
+          </form>
+        }
         <div className={styles.grid}>
           <a href="https://ouiriseinit.github.io/miyu/" className={styles.card}>
             <p>Miyu</p>
@@ -65,42 +75,33 @@ export default function Home() {
         </div>
       </main>
 
-      <code className={styles.address}>
-        ouiriseinitiative@yahoo.com
-        (980) 486 - 7595
-      </code>
+      
 
       <footer>
-        Built by Ouirise Initiative
+        
+        <code className={styles.address}>
+          <p>Built by Ouirise Initiative</p>
+          <a href="tel:+19804867595">(980) 486 - 7595</a>
+          <a href="mailto:ouiriseinitiative@yahoo.com">ouiriseinitiative@yahoo.com</a>
+          
+      </code>
       </footer>
 
       <style jsx>{`
 
         main {
-          padding: 5rem 0;
           flex: 1;
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          align-items: center;
         }
         footer {
           width: 100%;
           height: 100px;
           border-top: 1px solid #eaeaea;
-          display: flex;
-          justify-content: center;
-          align-items: center;
         }
         footer img {
           margin-left: 0.5rem;
         }
         footer a {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          text-decoration: none;
-          color: inherit;
+        color: rgb(237, 185, 80);
         }
         code {
           background: #111;
@@ -117,14 +118,20 @@ export default function Home() {
             Bitstream Vera Sans Mono,
             Courier New,
             monospace;
-        }
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+        padding: 1rem 0;
+      } 
+            
             h1{ font-size: 1.6rem;}
       `}</style>
 
       <style jsx global>{`
         html,
         body {
-          padding: 0;
+          padding: 0.5rem 1rem;
           margin: 0;
           font-family:
             -apple-system,
@@ -149,12 +156,12 @@ export default function Home() {
   flex-direction: column;
   gap: 1rem;
   background: rgba(38, 38, 38, 0.5);
-  padding: 1rem 1.5rem 2rem;
+  padding: 1rem 2rem 2rem;
   border: solid 1px #5e1e1e;
   border-radius: 0.5rem;
   max-width: 24rem;
   width: 100%;
-  margin: auto;
+  margin: 2rem auto;
 }
   input {
   margin-right: 1rem;
@@ -163,18 +170,25 @@ export default function Home() {
   padding: 1rem 0.5rem;
   border: solid 1px #5e1e1e;
   border-radius: 0.25rem;
-  max-width: 26rem;
+  width: 100%;
   }
   input:hover {
      padding: 1rem 1rem;  
+
   }
 
   footer {
         border-top: solid 1px #5e1e1e;
+        margin-top: 3rem;
   }
-        h2 {
-          text-align: center;
-        }
+        
+
+  code {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+  }
       `}</style>
     </div>
   );
