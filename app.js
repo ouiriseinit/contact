@@ -51,7 +51,7 @@ app.post('/api/send', async (req, res) => {
     if (found) {
         const newMessage = new Message({ name, user_id: found._id, message });
         await newMessage.save();
-        res.redirect('/')
+        res.redirect('https://ouirise.github.io/')
         //res.status(201).json({ message: 'User created successfully', userId: newUser.id });
     }
     // Send success response
@@ -112,7 +112,8 @@ app.get('/api/db/clear', async (req, res) => {
 
 // --- VIEW ROUTES ---
 app.get('/', (req, res) => {
-    res.sendFile(path.resolve(__dirname, 'index.html'))
+    //res.sendFile(path.resolve(__dirname, 'index.html'))
+    res.redirect('http://ouirise.github.io/')
 })
 app.get('/users', ( req, res) => {
     res.sendFile(path.resolve(__dirname, 'pages/users.html'))
