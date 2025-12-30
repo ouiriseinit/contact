@@ -43,33 +43,34 @@ app.post('/api/send', async (req, res) => {
     if (req.body) {
         console.log(req.body)
     }
-    try {
-    const { name, email, phone, message } = req.body;
-    // Extract the user data from req.body and create a new User instance
-    const newUser = new User({ name, email, phone, business });
+    res.redirect('/')
+//     try {
+//     const { name, email, phone, message } = req.body;
+//     // Extract the user data from req.body and create a new User instance
+//     const newUser = new User({ name, email, phone, business });
 
-    // Save the new user to the database
-    await newUser.save();
+//     // Save the new user to the database
+//     await newUser.save();
 
-    const found = await User.findOne(newUser);
-    if (found) {
-        const newMessage = new Message({ name, user_id: found._id, message });
-        await newMessage.save();
-        res.redirect('/')
-        //res.status(201).json({ message: 'User created successfully', userId: newUser.id });
-    }
-    // Send success response
+//     const found = await User.findOne(newUser);
+//     if (found) {
+//         const newMessage = new Message({ name, user_id: found._id, message });
+//         await newMessage.save();
+//         res.redirect('/')
+//         //res.status(201).json({ message: 'User created successfully', userId: newUser.id });
+//     }
+//     // Send success response
     
-  } catch (error) {
-    console.error('Error creating user:', error);
-    // Send error response
-    res.status(500).json({ error: 'Failed to create user' });
-  }
+//   } catch (error) {
+//     console.error('Error creating user:', error);
+//     // Send error response
+//     res.status(500).json({ error: 'Failed to create user' });
+//   }
 })
 app.get('/api/send', async (req, res) => {
 if (req.body) {
-    console.log(req.body)
-    res.redirect('/')
+    console.log(req)
+    
     // const { name, email, phone, message } = req.body;
 //     try {
     
@@ -94,6 +95,7 @@ if (req.body) {
 //     res.status(500).json({ error: 'Failed to create user' });
 //   }
 }
+res.redirect('/')
 })
 
 app.get('/api/users', async (req, res) => {
