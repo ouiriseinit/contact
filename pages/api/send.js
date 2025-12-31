@@ -10,7 +10,6 @@ export default async function handler(req, res) {
   }
 
   try {
-    await dbConnect();
 
     // In Pages Router, data is in req.body (already parsed)
     console.log(req.body)
@@ -20,13 +19,12 @@ export default async function handler(req, res) {
     console.log('ping from ' + name)
 
     // verify user doesn't exist
-    let found = await User.find({ name, phone })
+    let found = await supabase.from('users').select({ name, phone })
 
 
     if (found) return res.status(200).json({ success: 'user already exists' })
 
-    user = new User({ name, email, phone })
-    await user.save()
+    const { data: users } = await supabase.from('users').insert({ name, phone, email, business })
 
     console.log('saved ' + user)
     return res.status(200).json({ success: 'recieved data' })

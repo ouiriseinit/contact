@@ -1,7 +1,12 @@
 import Head from 'next/head';
 import { useState } from 'react'
 
-export default function Home() {
+import { createClient } from '@/utils/supabase/server'
+import { cookies } from 'next/headers'
+
+  
+
+export default async function Home() {
   const [name, setName] = useState('')
   const [phone, setPhone] = useState('')
   const [email, setEmail] = useState('')
@@ -9,6 +14,8 @@ export default function Home() {
   const [content, setContent] = useState('')
 
   const [showForm, setShowForm] = useState(false)
+
+  
 
   const handleSubmit = async (e) => {
   e.preventDefault();

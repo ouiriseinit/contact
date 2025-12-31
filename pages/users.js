@@ -1,18 +1,19 @@
 import { useEffect, useState } from 'react'
+import global from  '../css/Gobal.module.css'
 
 export default function Users() {
     const [users, setUsers] = useState([])
     const [refresh, setRefresh] = useState(0)
     useEffect(() => {
-        fetch('/api/user')
+        fetch('/api/users')
         .then(res => res.json())
         .then(data => setUsers(data))
     }, [refresh])
 
-    const remove = (_id) => {
+    const remove = (user_id) => {
         fetch('/api/user/', {
                 method: 'DELETE',
-                body: JSON.stringify({ _id })
+                body: JSON.stringify({ user_id })
             }
         )
         .then(res => res.json())
