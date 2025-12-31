@@ -11,35 +11,39 @@
             margin: 0;
             padding: 0;
             color: #333;
-            
+            overflow-x: hidden;
         }
       
         
 
         body.dark {
-            background: #333;
+            background: rgb(12,12,12);
+            
             color: #eaeaea;
         }
         body > * {
             max-width: calc(100% - 2rem);
         }
         .card {
-            
-            
             padding: 1rem;
             border-radius: 4px;
             margin-bottom: 1rem;
         }
         header {
+            margin-top: -1rem;
             position: sticky;
-            top: 0;
+            top: -1rem;
             right: 0;
             left: 0;
             height: fit-content;
-            padding-top: 1rem;
-            background: #333;
+            padding-top: 2rem;
             z-index: 3;
             border-bottom: #5e1e1e solid 1px;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            border-radius: 8px;
+            background: rgb(12,12,12);
         }
         h1 {
             font-size: 1.45rem;
@@ -101,15 +105,61 @@
         header, main, footer {
             margin-left: 1rem !important;
         }
+        button {
+            padding: 1rem 2rem;
+            background: rgb(12,12,12);
+            border: solid #5e1e1e 1px;
+            color: #eaeaea;
+            border-radius: 8px 8px 8px 0;
+        }
+        .hidden {
+            display: none;
+        }
+        form {
+            width: fit-content;
+            max-width: 80%;
+            margin: 1rem auto;
+            display: flex; flex-direction: column; align-items: center;
+            padding: 1rem;
+            gap: 0.5rem;
+            border: solid 1px #333;
+            border-radius: 8px;
+        }
+        input {
+            padding: 1rem;
+            background: rgb(12,12,12);
+            border: solid 1px #111;
+            padding: 1rem;
+            color: #eaeaea;
+            border-radius: 8px;
+        }
+        input:focus {
+            border: solid 1px #eaeaea;
+            padding: 1.25rem
+        }
+        input[type="submit"] {
+            color: #eaeaea;
+            padding: 1rem 3rem;
+        }
     </style>
 </head>
 <body class="dark">
     <header>
         <h1>Ouirise Initiative</h1>
-        
+        <button onclick="showContact()">Contact</button>
+        <form id="contact-form" class="hidden" action="/api/send">
+        <input placeholder="name" name="name" type="text" />
+        <input placeholder="phone" name="phone" type="text" />
+        <input placeholder="email" name="emai" type="email" />
+        <input placeholder="message" name="message" type="text" />
+        <input type="submit" value-enter onclick="showContact()" />
+    </form>
     </header>
     <main>
     <h2>Launch and Scale Your Business 🚀</h2>
+
+    
+
     <section>
         <h3>Our Software Engineers</h3>
         <p>Developed React, Angular, HTML, CSS, and Wordpress applications for industry innovators in FinTech Entreprenuership and Startups.</p>
@@ -118,10 +168,10 @@
         <p>Placed in Hackathons and Tutored while developing solutions for business students first year at HPU.</p>
         <h3>over 6 years of industry experience</h3>
     </section>
+    
     <section>
     <h2>Project Plans</h2>
     <h3>Deploy and Scale</h3>
-
     
     <div class="card plan">
         <h3>Single Page Application Plan</h3>
@@ -155,5 +205,10 @@
         <p>Built by Ouirise.</p>
     </footer>
 </main>
+<script>
+    const showContact = () => {
+        document.getElementById('contact-form').classList.toggle('hidden')
+    }
+</script>
 </body>
 </html>
