@@ -88,9 +88,9 @@ nav a:hover { color: var(--maroon); }
 
 .shop-section { padding:5rem 5%; }
 .section-header { margin-bottom:3rem; border-left:5px solid var(--maroon); padding-left:1.5rem; }
-.product-grid { display:grid; grid-template-columns: repeat(auto-fill,minmax(280px,1fr)); gap:2rem; }
+.product-grid { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 3rem; }
 
-.product-card { background:var(--mid-dark); border:var(--tactical-border); padding:1rem; transition: transform .3s, border-color .3s; position:relative; }
+.product-card { background:var(--mid-dark); border:var(--tactical-border); padding:1rem; transition: transform .3s, border-color .3s; position:relative; min-width: 400px; }
 .product-card:hover { border-color: var(--maroon); transform: translateY(-5px); }
 
 .product-image { width:100%; aspect-ratio:1/1; margin-bottom:1rem; display:flex; align-items:center; justify-content:center; overflow:hidden; border-radius:12px; }
@@ -140,7 +140,7 @@ img{max-width:100%; border-radius:12px;}
 <section class="hero">
   <div class="hero-content">
     <h1>Music</h1>
-    <p>Black-owned. Field-tested. Built for endurance. Expressive streetwear for every vibe, colorful or greyscale.</p>
+    <p>Black-owned. Field-tested. Built for endurance. Flows for every vibe, colorful or greyscale.</p>
     <a href="#shop" class="btn">ACCESS GRANTED</a>
   </div>
 </section>
@@ -154,9 +154,7 @@ img{max-width:100%; border-radius:12px;}
   <div class="product-grid">
     <!-- Product 1 -->
     <div class="product-card">
-      <div class="product-image">
-        <img src="https://images.pexels.com/photos/1598505/pexels-photo-1598505.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Streetwear Hoodie">
-      </div>
+      <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/6TyOWQrS8aHkmouAEkxpOL?utm_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="false" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
       <div class="product-category">Streetwear</div>
       <h3 class="product-title">Rogue Hoodie</h3>
       <div class="product-price">$75</div>
@@ -165,32 +163,28 @@ img{max-width:100%; border-radius:12px;}
 
     <!-- Product 2 -->
     <div class="product-card">
-      <div class="product-image">
-        <img src="https://images.pexels.com/photos/1027132/pexels-photo-1027132.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Skate Deck">
-      </div>
-      <div class="product-category">Skate Gear</div>
-      <h3 class="product-title">Void Deck 8.25</h3>
-      <div class="product-price">$65</div>
+      <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/3Ls60jxeO1Eah5Z4EB64AM?utm_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+      <div class="product-category"></div>
+      <h3 class="product-title">the Grinch Pajamas</h3>
+      <div class="product-price">hoodies, pants, masks</div>
+      <div class="product-price">$60</div>
       <a class="add-cart" href="https://ouiriseinit.github.io">BUY NOW</a>
     </div>
 
     <!-- Product 3 -->
-    <div class="product-card">
-      <div class="product-image">
-        <img src="https://images.pexels.com/photos/2529148/pexels-photo-2529148.jpeg?auto=compress&cs=tinysrgb&w=800" alt="NBA Jersey">
-      </div>
+    <!-- <div class="product-card">
+      <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/3wlsp7kKzMLy5Ilb5ph1Rg?utm_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
       <div class="product-category">NBA Apparel</div>
       <h3 class="product-title">Hornets Jersey XL</h3>
       <div class="product-price">$80</div>
       <a class="add-cart" href="https://ouiriseinit.github.io">BUY NOW</a>
-    </div>
+    </div> -->
 
     <!-- Product 4 -->
     <div class="product-card">
-      <div class="product-image">
-        <img src="https://images.pexels.com/photos/1002646/pexels-photo-1002646.jpeg?auto=compress&cs=tinysrgb&w=800" alt="NFL Hoodie">
-      </div>
-      <div class="product-category">NFL Apparel</div>
+      <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/7u0wJeqHkYitH8fNcMMbmK?utm_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+      <div>Collection</div>
+      <div class="product-category">NFL + NBA Apparel</div>
       <h3 class="product-title">Panthers Hoodie L</h3>
       <div class="product-price">$60</div>
       <a class="add-cart" href="https://ouiriseinit.github.io">BUY NOW</a>
@@ -200,11 +194,11 @@ img{max-width:100%; border-radius:12px;}
 
 <section class="mission" id="about">
   <div class="mission-image">
-    <img src="https://images.pexels.com/photos/6311674/pexels-photo-6311674.jpeg?auto=compress&cs=tinysrgb&w=800" alt="OuiRise Black-Owned Streetwear">
+    <img src="https://images.pexels.com/photos/1540406/pexels-photo-1540406.jpeg" alt="Photo by Wendy Wei: https://www.pexels.com/photo/group-of-people-gathering-in-concert-1540406/">
   </div>
   <div class="mission-text">
     <h2>BLACK OWNED. <span>PURPOSE DRIVEN.</span></h2>
-    <p>OuiRise is more than a label. Tactical streetwear meeting professional sports and underground skate culture. Every drop is expressive and versatile.</p>
+    <p>OuiRise is more than a label. Where creative drive meets professional execution. Every drop is expressive and versatile.</p>
     <p>// ESTABLISHED 2025</p>
     <p>// LOCATED: CLT</p>
   </div>
